@@ -1,7 +1,9 @@
 # Resumo Aula 1
-> Resumo criado pelo aluno [João Pedro Trevisan](https://www.linkedin.com/in/joao-pedro-trevisan)
+> Resumo criado pelos alunos [João Pedro Trevisan](https://www.linkedin.com/in/joao-pedro-trevisan),
+[Antônio Cícero Azevedo](https://github.com/azmovi)
 
 #### Professor
+
 ![Murilo Naldi](https://img.shields.io/badge/Murilo_Coelho_Naldi-%2300599C.svg?style=for-the-badge&logo=GoogleScholar&logoColor=white)
 
 
@@ -28,7 +30,7 @@ A imagem a seguir é um fluxograma de alguns tipos de **Aprendizado de Máquina*
 ## Dados, Tipos de Atributos e Noções de Pré-Processamento
 Ao se falar de Inteligência Artificial muitos elementos se fazem presentes e é preciso elencá-los. Um conceito muito comum neste meio é o **dado**, um dado é basicamente uma observação e depende de um contexto para significar algo, a disponibilidade de dados abre margem para ser extraída informação. Ainda sobre dados surge o conceito não necessariamente relacionado a IA de **Big Data** que olha pros dados que possuem grande *volume*, *variedade* e *velocidade* atribuídas a eles.  
 
-Quando temos um conjunto de dados podemos retirar dele um único exemplar de dados chamado de **amostra**, **exemplo** ou **instância** . Um **atributo** é uma característica observável ou mensurável de uma **instância**, cada **amostra** é descrita por um conjunto de **atributos**. Nem sempre os dados vão possuir características explícitas, chamamos estes dados de "*não-estruturados*", podemos então realizar a extração ou aprendizado de atributos. Grande parte dos algoritmos de AM recebem seus dados na forma de uma *tabela atributo-valor* onde as linhas representam uma **amostra** e as colunas seus **atributos**.  
+Quando temos um conjunto de dados podemos retirar dele um único exemplar de dados chamado de **amostra**, **exemplo** ou **instância** . Um **atributo** é uma característica observável ou mensurável de uma **instância**, cada **amostra** é descrita por um conjunto de **atributos**. Nem sempre os dados vão possuir características explícitas, chamamos estes dados de "*não-estruturados*", podemos então realizar a extração ou aprendizado de atributos. Grande parte dos algoritmos de AM recebem seus dados na forma de uma *tabela atributo-valor* onde as linhas representam uma **amostra** e as colunas seus **atributos**.
 
 Dependendo do tipo de atributo que temos em mãos para realizar uma análise podemos extrair diferentes tipos de informação. Começaremos falando de **atributos numéricos**.
 
@@ -50,8 +52,63 @@ Por fim, temos os **atributos ordinais** cujo nome entrega que tem uma ordem ent
 
 É possível extrair deles informações de frequência, quantis, intervalo interquartil e tais tipos de dados.
 
-Uma parte importante de se trabalhar com dados está no **pré processamento dos dados**. É nessa faze do trabalho com dados que se pode tratar valores desconhecidos, classes desbalanceadas, *outliers* e ruídos.
+Uma parte importante de se trabalhar com dados está no **pré processamento dos dados**. É nessa fase do trabalho com dados que se pode tratar valores desconhecidos, classes desbalanceadas, *outliers* e ruídos.
 
+## Covariância e Correlação 
+#### Covariância
+A covariância verifica o relacionamento entre duas variáveis. Então se por exemplo
+tivermos duas variáveis independentes $X$ e $Y$ garantimos que $cov(X, Y) = 0$.
+Vale ressaltar  que inverso não é valido, se $cov(A, B) = 0$ não podemos garantir
+que $A$ e $B$ são independentes apenas com esse cálculo.
+
+A formula da covariância é dada por:
+$$cov(X, Y) = \frac{\sum_{i=1}^{n}(X_{i} - \bar{X})(Y_{i} - \bar{Y})}{n-1} $$
+Sendo:
+- $n$ o numero de observações da amostra.
+- $X_i$ e $Y_i$ os valores individuais de $X$ e $Y$
+- $\bar{X}$ e $\bar{Y}$ a media de $X$ e $Y$
+
+Com isso conseguimos ter uma medida estatística que indica a direção e a intensidade
+do relacionado entre duas variáveis aleatórias.
+- $cov(X, Y) = 0$: variáveis são independentes
+- $cov(X, Y) > 0$: variáveis são diretamente dependentes
+- $cov(X, Y) < 0$: variáveis são inversamente dependentes
+
+##### Exemplo
+![tabela de altura x peso](images/table_aula1.svg)
+> Dados meramente didáticos com valores fictícios
+
+Dado esse gráfico vamos descobrir a covariância entre as duas variáveis
+
+| eixo | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+| - | - | - | - | - | - | - | - | - | - | - |
+| Altura | 1.6 | 1.75 | 1.73 | 1.57 | 1.91 | 1.70 | 1.78 | 1.65 | 1.78 | 1.88 |
+| Peso | 61 | 75 | 72 | 60 | 92 | 65 | 81 | 68 | 80 | 85 |
+
+Calculando a media das alturas temos $\bar{X} = 1.735$ e a media dos pesos temos
+$\bar{Y} = 73.9$
+
+Passando os valores para nossa formula de covariância temos que $cov(X, Y) \approx 1.38$
+
+#### Correlação
+Um ponto em que a covariância pode ser limitada é na interpretação da significância 
+dos resultados obtidos para um determinado conjunto de dados. Para isso, utilizamos 
+a **correlação**, que tem a capacidade de normalizar a covariância.
+
+Dessa forma, nossos valores estarão entre $[-1, 1]$ facilitando o entendimento 
+sobre a relação das duas variáveis em questão. Vamos considerar a fórmula 
+da `Correlação de Pearson` como um exemplo:
+$$
+r = \frac{\sum_{i=1}^n (X_i - \bar{X}) (Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^n(X_i - \bar{X})^2 * \sum_{i=1}^n(Y_i - \bar{Y})^2}}
+$$
+
+#### Matriz de Correlação
+Agora podemos generalizar essa ideia para todos os atributos presentes em nosso 
+conjunto de dados, construindo uma **matriz de correlação** que analisa as correlações
+par a par entre os atributos. Isso resultará em uma matriz simétrica onde as linhas
+e colunas representam as variáveis do conjunto, e cada célula conterá o valor da
+correlação, como o `coeficiente de correlação de Pearson`, por exemplo.
+![matriz de correlação](images/matriz_de_correlacao.jpg)
 
 ## Contato
 
