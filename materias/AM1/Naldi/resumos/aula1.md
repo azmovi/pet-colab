@@ -3,7 +3,6 @@
 [Antônio Cícero Azevedo](https://github.com/azmovi)
 
 #### Professor
-
 ![Murilo Naldi](https://img.shields.io/badge/Murilo_Coelho_Naldi-%2300599C.svg?style=for-the-badge&logo=GoogleScholar&logoColor=white)
 
 
@@ -62,7 +61,9 @@ Vale ressaltar  que inverso não é valido, se $cov(A, B) = 0$ não podemos gara
 que $A$ e $B$ são independentes apenas com esse cálculo.
 
 A formula da covariância é dada por:
-$$cov(X, Y) = \frac{\sum_{i=1}^{n}(X_{i} - \bar{X})(Y_{i} - \bar{Y})}{n-1} $$
+
+![tabela de altura x peso](images/formula_covariancia.png)
+
 Sendo:
 - $n$ o numero de observações da amostra.
 - $X_i$ e $Y_i$ os valores individuais de $X$ e $Y$
@@ -98,9 +99,8 @@ a **correlação**, que tem a capacidade de normalizar a covariância.
 Dessa forma, nossos valores estarão entre $[-1, 1]$ facilitando o entendimento 
 sobre a relação das duas variáveis em questão. Vamos considerar a fórmula 
 da `Correlação de Pearson` como um exemplo:
-$$
-r = \frac{\sum_{i=1}^n (X_i - \bar{X}) (Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^n(X_i - \bar{X})^2 * \sum_{i=1}^n(Y_i - \bar{Y})^2}}
-$$
+
+![tabela de altura x peso](images/formula_correlacao.png)
 
 #### Matriz de Correlação
 Agora podemos generalizar essa ideia para todos os atributos presentes em nosso 
